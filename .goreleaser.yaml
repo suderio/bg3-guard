@@ -33,10 +33,12 @@ builds:
 archives:
   - id: bg3-guard-archive
     name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
-    format: tar.gz
+    formats:
+      - tar.gz
     format_overrides:
       - goos: windows
-        format: zip
+        formats:
+          - zip
     files:
       - README.md
       - LICENSE
@@ -213,13 +215,13 @@ announce:
   reddit:
     enabled: "{{ ne .Env.REDDIT_APP_ID \"\" }}"
     title_template: "BG3 Guard {{ .Tag }} released - Baldur's Gate 3 Honour Mode Save Protection & Recovery"
-    url: "{{ .ReleaseNotesURL }}"
+    url_template: "{{ .ReleaseNotesURL }}"
     sub: "BaldursGate3"
 
   # Generic Webhook (Zapier, Make, n8n, IFTTT, custom social media bots)
-  webhooks:
-    - endpoint_url: "{{ .Env.SOCIAL_BROADCAST_WEBHOOK_URL }}"
-      skip: "{{ eq .Env.SOCIAL_BROADCAST_WEBHOOK_URL \"\" }}"
-      headers:
-        - "Content-Type: application/json"
-      message_template: '{ "project": "{{ .ProjectName }}", "tag": "{{ .Tag }}", "release_url": "{{ .ReleaseNotesURL }}", "version": "{{ .Version }}" }'
+  webhook:
+    enabled: "{{ ne .Env.SOCIAL_BROADCAST_WEBHOOK_URL \"\" }}"
+    endpoint_url: "{{ .Env.SOCIAL_BROADCAST_WEBHOOK_URL }}"
+    headers:
+      Content-Type: "application/json"
+    message_template: '{ "project": "{{ .ProjectName }}", "tag": "{{ .Tag }}", "release_url": "{{ .ReleaseNotesURL }}", "version": "{{ .Version }}" }'
