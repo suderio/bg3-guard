@@ -1,0 +1,24 @@
+# Binaries
+*.exe
+bg3-guard
+bg3-guard.exe
+
+# OS / temporary files
+*.tmp
+*.zip
+lslib_src/
+
+# IDE
+.vscode/
+.idea/
+
+# GoReleaser artifacts
+dist/
+
+# Local configuration & cache
+config.yaml
+.local/
+
+# Third-party precompiled toolchain (downloaded at build time)
+assets/divine/
+

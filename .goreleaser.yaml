@@ -1,0 +1,225 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+# GoReleaser configuration for BG3 Guard (bg3-guard)
+# Documentation: https://goreleaser.com
+
+version: 2
+
+project_name: bg3-guard
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: bg3-guard
+    main: ./main.go
+    binary: bg3-guard
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - windows
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X bg3-guard/cmd.Version={{ .Version }}
+      - -X bg3-guard/cmd.Commit={{ .Commit }}
+      - -X bg3-guard/cmd.Date={{ .Date }}
+      - -X bg3-guard/cmd.BuiltBy=goreleaser
+
+archives:
+  - id: bg3-guard-archive
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    format: tar.gz
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - README.md
+      - LICENSE
+      - docs/*
+
+checksum:
+  name_template: "checksums.txt"
+  algorithm: sha256
+
+signs:
+  - id: cosign
+    cmd: cosign
+    args:
+      - "sign-blob"
+      - "--yes"
+      - "--output-signature=${signature}"
+      - "--output-certificate=${certificate}"
+      - "${artifact}"
+    artifacts: checksum
+
+# Homebrew Cask (for macOS and Linux Homebrew tap)
+homebrew_casks:
+  - name: bg3-guard
+    repository:
+      owner: suderio
+      name: homebrew-tap
+      branch: main
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    commit_author:
+      name: goreleaserbot
+      email: bot@goreleaser.com
+    commit_msg_template: "Brew cask update for {{ .ProjectName }} version {{ .Tag }}"
+    homepage: "https://github.com/suderio/bg3-guard"
+    description: "Honour mode save protection and recovery utility for Baldur's Gate 3"
+    caveats: "BG3 Guard embeds the LSLib Divine toolchain for save operations."
+    skip_upload: "{{ eq .Env.HOMEBREW_TAP_GITHUB_TOKEN \"\" }}"
+
+# Scoop App Manifest (for Windows Scoop bucket)
+scoops:
+  - name: bg3-guard
+    repository:
+      owner: suderio
+      name: scoop-bucket
+      branch: main
+      token: "{{ .Env.SCOOP_BUCKET_GITHUB_TOKEN }}"
+    commit_author:
+      name: goreleaserbot
+      email: bot@goreleaser.com
+    commit_msg_template: "Scoop update for {{ .ProjectName }} version {{ .Tag }}"
+    homepage: "https://github.com/suderio/bg3-guard"
+    description: "Honour mode save protection and recovery utility for Baldur's Gate 3"
+    license: "MIT"
+    skip_upload: "{{ eq .Env.SCOOP_BUCKET_GITHUB_TOKEN \"\" }}"
+
+# Winget Package Manifest (Windows Package Manager)
+winget:
+  - name: bg3-guard
+    publisher: suderio
+    short_description: "Honour mode save protection and recovery utility for Baldur's Gate 3"
+    description: "Honour mode save protection and recovery utility for Baldur's Gate 3"
+    license: "MIT"
+    license_url: "https://github.com/suderio/bg3-guard/blob/main/LICENSE"
+    publisher_url: "https://github.com/suderio"
+    publisher_support_url: "https://github.com/suderio/bg3-guard/issues"
+    package_identifier: "suderio.bg3guard"
+    url_template: "https://github.com/suderio/bg3-guard/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    repository:
+      owner: suderio
+      name: winget-pkgs
+      branch: main
+      token: "{{ .Env.WINGET_GITHUB_TOKEN }}"
+    skip_upload: "{{ eq .Env.WINGET_GITHUB_TOKEN \"\" }}"
+
+# Arch User Repository (AUR)
+aurs:
+  - name: bg3-guard-bin
+    homepage: "https://github.com/suderio/bg3-guard"
+    description: "Honour mode save protection and recovery utility for Baldur's Gate 3"
+    maintainers:
+      - "suderio"
+    license: "MIT"
+    private_key: "{{ .Env.AUR_KEY }}"
+    git_url: "ssh://aur@aur.archlinux.org/bg3-guard-bin.git"
+    skip_upload: "{{ eq .Env.AUR_KEY \"\" }}"
+    package: |-
+      # bin
+      install -Dm755 "./bg3-guard" "${pkgdir}/usr/bin/bg3-guard"
+      # license
+      install -Dm644 "./LICENSE" "${pkgdir}/usr/share/licenses/bg3-guard/LICENSE"
+      # docs
+      install -Dm644 "./README.md" "${pkgdir}/usr/share/doc/bg3-guard/README.md"
+
+# Linux packages (DEB and RPM) via nfpms
+nfpms:
+  - id: bg3-guard-packages
+    package_name: bg3-guard
+    vendor: suderio
+    homepage: "https://github.com/suderio/bg3-guard"
+    maintainer: "suderio <https://github.com/suderio>"
+    description: "Honour mode save protection and recovery utility for Baldur's Gate 3"
+    license: "MIT"
+    formats:
+      - deb
+      - rpm
+    bindir: /usr/bin
+    section: utils
+    contents:
+      - src: LICENSE
+        dst: /usr/share/doc/bg3-guard/copyright
+      - src: README.md
+        dst: /usr/share/doc/bg3-guard/README.md
+
+# GitHub Release settings
+release:
+  github:
+    owner: suderio
+    name: bg3-guard
+  draft: false
+  prerelease: auto
+  mode: replace
+  header: |
+    ## Baldur's Gate 3 Guard - Release {{ .Tag }}
+  footer: |
+    **Full Changelog**: https://github.com/suderio/bg3-guard/compare/{{ .PreviousTag }}...{{ .Tag }}
+
+# Automated Release Notes / Changelog
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^chore:'
+      - Merge pull request
+      - Merge branch
+  groups:
+    - title: '✨ Features'
+      regexp: '^.*?feat(\([[:word:]]+\))??!?:.+$'
+      order: 100
+    - title: '🐛 Bug Fixes'
+      regexp: '^.*?fix(\([[:word:]]+\))??!?:.+$'
+      order: 200
+    - title: '🧰 Maintenance & Dependencies'
+      order: 300
+
+# Social media & community announcements
+announce:
+  # Discord Webhook Notification
+  discord:
+    enabled: "{{ ne .Env.DISCORD_WEBHOOK_ID \"\" }}"
+    message_template: "🛡️ **BG3 Guard {{ .Tag }}** is out!\nHonour Mode save protection & recovery for Baldur's Gate 3.\n\nRelease notes: {{ .ReleaseNotesURL }}"
+
+  # Mastodon Toot
+  mastodon:
+    enabled: "{{ ne .Env.MASTODON_SERVER \"\" }}"
+    message_template: "🛡️ BG3 Guard {{ .Tag }} has been released: {{ .ReleaseNotesURL }} #baldursgate3 #bg3 #gaming #opensource"
+
+  # Bluesky Post
+  bluesky:
+    enabled: "{{ ne .Env.BLUESKY_IDENTIFIER \"\" }}"
+    message_template: "🛡️ BG3 Guard {{ .Tag }} is out! Honour Mode save protection and recovery for Baldur's Gate 3.\n\n{{ .ReleaseNotesURL }}"
+
+  # Telegram Channel / Group Notification
+  telegram:
+    enabled: "{{ ne .Env.TELEGRAM_CHAT_ID \"\" }}"
+    message_template: "🛡️ *BG3 Guard {{ .Tag }}* is out!\n\nRelease notes: {{ .ReleaseNotesURL }}"
+
+  # Twitter / X Tweet
+  twitter:
+    enabled: "{{ ne .Env.TWITTER_CONSUMER_KEY \"\" }}"
+    message_template: "🛡️ BG3 Guard {{ .Tag }} is out! Safe honour mode backup & recovery for Baldur's Gate 3: {{ .ReleaseNotesURL }}"
+
+  # Reddit Submission
+  reddit:
+    enabled: "{{ ne .Env.REDDIT_APP_ID \"\" }}"
+    title_template: "BG3 Guard {{ .Tag }} released - Baldur's Gate 3 Honour Mode Save Protection & Recovery"
+    url: "{{ .ReleaseNotesURL }}"
+    sub: "BaldursGate3"
+
+  # Generic Webhook (Zapier, Make, n8n, IFTTT, custom social media bots)
+  webhooks:
+    - endpoint_url: "{{ .Env.SOCIAL_BROADCAST_WEBHOOK_URL }}"
+      skip: "{{ eq .Env.SOCIAL_BROADCAST_WEBHOOK_URL \"\" }}"
+      headers:
+        - "Content-Type: application/json"
+      message_template: '{ "project": "{{ .ProjectName }}", "tag": "{{ .Tag }}", "release_url": "{{ .ReleaseNotesURL }}", "version": "{{ .Version }}" }'
