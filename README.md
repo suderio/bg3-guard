@@ -8,12 +8,24 @@
   <strong>Automated Honour Mode save protection, safe rollbacks, and save recovery for Baldur's Gate 3.</strong>
 </p>
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/suderio/bg3-guard)](https://goreportcard.com/report/github.com/suderio/bg3-guard)
+[![GoDoc](https://godoc.org/github.com/suderio/bg3-guard?status.svg)](https://godoc.org/github.com/suderio/bg3-guard)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/suderio/bg3-guard/go.yml)](https://github.com/suderio/bg3-guard/actions)
+[![GitHub Release](https://img.shields.io/github/v/release/suderio/bg3-guard)](https://github.com/suderio/bg3-guard/releases)
+[![GitHub Downloads](https://img.shields.io/github/downloads/suderio/bg3-guard/total)](https://github.com/suderio/bg3-guard/releases)
+
 <p align="center">
   <a href="https://github.com/suderio/bg3-guard/releases"><img src="https://img.shields.io/github/v/release/suderio/bg3-guard?style=for-the-badge&color=blue" alt="Latest Release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" alt="License: MIT"></a>
   <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Steam%20Deck%20%7C%20macOS-informational?style=for-the-badge" alt="Platform Support">
   <img src="https://img.shields.io/badge/Go-1.24%2B-00ADD8?style=for-the-badge&logo=go" alt="Go Version">
 </p>
+
+
+
+
+
 
 ---
 
