@@ -13,17 +13,8 @@
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/suderio/bg3-guard/go.yml)](https://github.com/suderio/bg3-guard/actions)
 [![GitHub Release](https://img.shields.io/github/v/release/suderio/bg3-guard)](https://github.com/suderio/bg3-guard/releases)
 [![GitHub Downloads](https://img.shields.io/github/downloads/suderio/bg3-guard/total)](https://github.com/suderio/bg3-guard/releases)
-[![Platform Support](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Steam%20Deck%20%7C%20macOS-informational?style=for-the-badge)](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Steam%20Deck%20%7C%20macOS-informational)
-[![Go Version](https://img.shields.io/badge/Go-1.24%2B-00ADD8?style=for-the-badge&logo=go)](https://img.shields.io/badge/Go-1.24%2B-00ADD8)
-<p align="center">
-  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Steam%20Deck%20%7C%20macOS-informational?style=for-the-badge" alt="Platform Support">
-  <img src="https://img.shields.io/badge/Go-1.24%2B-00ADD8?style=for-the-badge&logo=go" alt="Go Version">
-</p>
-
-
-
-
-
+[![Platform Support](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Steam%20Deck%20%7C%20macOS-informational)](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Steam%20Deck%20%7C%20macOS-informational)
+[![Go Version](https://img.shields.io/badge/Go-1.24%2B-00ADD8?logo=go)](https://img.shields.io/badge/Go-1.24%2B-00ADD8)
 
 ---
 
