@@ -1,4 +1,4 @@
-module bg3-guard
+module github.com/suderio/bg3-guard
 
 go 1.27.1
 

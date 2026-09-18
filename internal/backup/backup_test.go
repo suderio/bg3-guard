@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"bg3-guard/internal/config"
+	"github.com/suderio/bg3-guard/internal/config"
 )
 
 func TestHasFolderChanged(t *testing.T) {

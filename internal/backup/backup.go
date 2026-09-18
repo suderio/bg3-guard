@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"bg3-guard/internal/config"
-	"bg3-guard/internal/filelock"
+	"github.com/suderio/bg3-guard/internal/config"
+	"github.com/suderio/bg3-guard/internal/filelock"
 )
 
 // BackupRegex matches backup folders: FolderName-YYYYMMDDHHMM (12 numeric digits at the end)

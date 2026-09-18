@@ -25,10 +25,10 @@ builds:
       - arm64
     ldflags:
       - -s -w
-      - -X bg3-guard/cmd.Version={{ .Version }}
-      - -X bg3-guard/cmd.Commit={{ .Commit }}
-      - -X bg3-guard/cmd.Date={{ .Date }}
-      - -X bg3-guard/cmd.BuiltBy=goreleaser
+      - -X github.com/suderio/bg3-guard/cmd.Version={{ .Version }}
+      - -X github.com/suderio/bg3-guard/cmd.Commit={{ .Commit }}
+      - -X github.com/suderio/bg3-guard/cmd.Date={{ .Date }}
+      - -X github.com/suderio/bg3-guard/cmd.BuiltBy=goreleaser
 
 archives:
   - id: bg3-guard-archive

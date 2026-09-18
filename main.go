@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"bg3-guard/cmd"
-	"bg3-guard/internal/recover"
+	"github.com/suderio/bg3-guard/cmd"
+	"github.com/suderio/bg3-guard/internal/recover"
 )
 
 //go:embed assets/divine/*

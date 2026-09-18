@@ -72,3 +72,10 @@ jobs:
           REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
           REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
           SOCIAL_BROADCAST_WEBHOOK_URL: ${{ secrets.SOCIAL_BROADCAST_WEBHOOK_URL }}
+
+      - name: Publish Go documentation to pkg.go.dev
+        run: |
+          RELEASE_TAG="${{ inputs.tag || github.ref_name }}"
+          echo "Requesting pkg.go.dev documentation for version ${RELEASE_TAG}..."
+          GOPROXY=https://proxy.golang.org go list -m github.com/suderio/bg3-guard@${RELEASE_TAG} || true
+

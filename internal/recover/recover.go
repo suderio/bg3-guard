@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"bg3-guard/internal/backup"
-	"bg3-guard/internal/config"
-	"bg3-guard/internal/process"
+	"github.com/suderio/bg3-guard/internal/backup"
+	"github.com/suderio/bg3-guard/internal/config"
+	"github.com/suderio/bg3-guard/internal/process"
 )
 
 // CloudSyncWarningMessage is the critical warning regarding Steam and Larian Cloud Saves.

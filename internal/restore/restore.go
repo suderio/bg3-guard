@@ -8,9 +8,9 @@ import (
 	"sort"
 	"time"
 
-	"bg3-guard/internal/backup"
-	"bg3-guard/internal/config"
-	"bg3-guard/internal/process"
+	"github.com/suderio/bg3-guard/internal/backup"
+	"github.com/suderio/bg3-guard/internal/config"
+	"github.com/suderio/bg3-guard/internal/process"
 )
 
 var timestampRegex = regexp.MustCompile(`-(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})$`)

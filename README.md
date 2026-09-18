@@ -8,7 +8,7 @@
   <strong>Automated Honour Mode save protection, safe rollbacks, and save recovery for Baldur's Gate 3.</strong>
 </p>
 
-[![GoDoc](https://godoc.org/github.com/suderio/bg3-guard?status.svg)](https://godoc.org/github.com/suderio/bg3-guard)
+[![Go Reference](https://pkg.go.dev/badge/github.com/suderio/bg3-guard.svg)](https://pkg.go.dev/github.com/suderio/bg3-guard)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/suderio/bg3-guard/go.yml)](https://github.com/suderio/bg3-guard/actions)
 [![GitHub Release](https://img.shields.io/github/v/release/suderio/bg3-guard)](https://github.com/suderio/bg3-guard/releases)

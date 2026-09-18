@@ -12,11 +12,11 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 
-	"bg3-guard/internal/backup"
-	"bg3-guard/internal/config"
-	"bg3-guard/internal/process"
-	"bg3-guard/internal/recover"
-	"bg3-guard/internal/restore"
+	"github.com/suderio/bg3-guard/internal/backup"
+	"github.com/suderio/bg3-guard/internal/config"
+	"github.com/suderio/bg3-guard/internal/process"
+	"github.com/suderio/bg3-guard/internal/recover"
+	"github.com/suderio/bg3-guard/internal/restore"
 )
 
 type ViewMode int

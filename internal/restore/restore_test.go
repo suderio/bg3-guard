@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"bg3-guard/internal/backup"
-	"bg3-guard/internal/config"
+	"github.com/suderio/bg3-guard/internal/backup"
+	"github.com/suderio/bg3-guard/internal/config"
 )
 
 func TestFormatTimestamp(t *testing.T) {
