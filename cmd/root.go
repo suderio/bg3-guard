@@ -17,6 +17,7 @@ import (
 	"bg3-guard/internal/config"
 	"bg3-guard/internal/recover"
 	"bg3-guard/internal/restore"
+	"bg3-guard/internal/terminal"
 	"bg3-guard/internal/tui"
 )
 
@@ -342,6 +343,10 @@ var versionCmd = &cobra.Command{
 }
 
 func init() {
+	// Disable Cobra's default Windows mousetrap splash screen so the application
+	// can launch its interactive Bubble Tea TUI seamlessly.
+	cobra.MousetrapHelpText = ""
+
 	rootCmd.Version = Version
 	rootCmd.SetVersionTemplate(fmt.Sprintf("bg3-guard {{.Version}} (commit: %s, date: %s, built by: %s)\n", Commit, Date, BuiltBy))
 
@@ -361,5 +366,6 @@ func init() {
 
 // Execute runs the root CLI command.
 func Execute() error {
+	terminal.EnsureInteractiveTerminal()
 	return rootCmd.Execute()
 }
